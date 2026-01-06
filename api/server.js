@@ -25,11 +25,11 @@ server.use(jsonServer.router('db.json'))
 const isDev = !process.env.VERCEL
 console.log('当前环境:' + (isDev ? '开发环境' : 'Vercel环境'));
 // 只在本地开发时监听端口（Vercel 部署时不需要监听）
-if (isDev) {
+// if (isDev) {
     server.listen(3000, () => {
         console.log('JSON Server 已启动: http://localhost:3000')
     })
-}
+// }
 
 // 导出 server 实例供 Vercel Serverless Function 使用
 export default server
