@@ -22,9 +22,6 @@ jobs:
       - name: 安装依赖
         run: pnpm i
 
-      - name: 打包
-        run: npm run build
-
       - name: 发布到服务器
         uses: easingthemes/ssh-deploy@main
         with:
