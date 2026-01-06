@@ -206,7 +206,7 @@
                     if (!res) return []
 
                     const isArr = Array.isArray(db.value[res])
-                    const list = [{ title: `获取全部 ${res}`, method: 'GET', url: res }]
+                    const list = [{ title: `获取全部 ${res}`, method: 'GET', url: `/${res}` }]
 
                     if (isArr) {
                         list.push(
