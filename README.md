@@ -1,2 +1,2 @@
 # json-server-app
-真棒
+真棒！
