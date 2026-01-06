@@ -1,212 +1,244 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JSON Server API</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Noto Sans SC', 'system-ui', 'sans-serif'],
-            mono: ['JetBrains Mono', 'Fira Code', 'monospace']
-          }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Server API</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        [v-cloak] {
+            display: none;
         }
-      }
-    }
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <style>
-    @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-    .animate-pulse-dot { animation: pulse-dot 2s infinite; }
-  </style>
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .animate-pulse-dot {
+            animation: pulse-dot 2s infinite;
+        }
+    </style>
 </head>
+
 <body class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-200 font-sans">
-  
-  <!-- 背景装饰 -->
-  <div class="fixed inset-0 pointer-events-none">
-    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
-  </div>
 
-  <div class="relative z-10 max-w-4xl mx-auto px-6 py-16">
-    
-    <!-- Header -->
-    <header class="text-center mb-16">
-      <div class="inline-flex items-center gap-3 mb-5">
-        <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-blue-500/30">
-          { }
+    <div id="app" v-cloak>
+        <!-- 背景装饰 -->
+        <div class="fixed inset-0 pointer-events-none">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
         </div>
-        <h1 class="text-4xl font-bold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
-          JSON Server
-        </h1>
-      </div>
-      <p class="text-slate-500 text-lg">零代码 · 快速搭建 REST API 模拟服务器</p>
-      <div class="inline-flex items-center gap-2 mt-6 px-4 py-2 bg-green-500/10 border border-green-500/30 text-green-400 rounded-full text-sm">
-        <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse-dot"></span>
-        服务运行中
-      </div>
-    </header>
 
-    <!-- 可用资源 -->
-    <section class="bg-white/5 border border-white/10 rounded-2xl p-8 mb-6 backdrop-blur">
-      <h2 class="text-xl font-medium mb-6 flex items-center gap-3">
-        <span class="w-1 h-6 bg-gradient-to-b from-blue-500 to-purple-500 rounded"></span>
-        可用资源
-      </h2>
-      <div id="resources-container" class="space-y-3">
-        <div class="flex items-center justify-center py-10 text-slate-500">
-          <svg class="w-6 h-6 animate-spin mr-3" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-          </svg>
-          正在加载资源...
-        </div>
-      </div>
-    </section>
+        <div class="relative z-10 max-w-4xl mx-auto px-6 py-16">
 
-    <!-- HTTP 方法 -->
-    <section class="bg-white/5 border border-white/10 rounded-2xl p-8 mb-6 backdrop-blur">
-      <h2 class="text-xl font-medium mb-6 flex items-center gap-3">
-        <span class="w-1 h-6 bg-gradient-to-b from-blue-500 to-purple-500 rounded"></span>
-        支持的 HTTP 方法
-      </h2>
-      <div class="flex flex-wrap gap-3">
-        <span class="px-4 py-2 bg-green-500/15 text-green-400 rounded-lg font-mono text-sm font-medium">GET</span>
-        <span class="px-4 py-2 bg-blue-500/15 text-blue-400 rounded-lg font-mono text-sm font-medium">POST</span>
-        <span class="px-4 py-2 bg-orange-500/15 text-orange-400 rounded-lg font-mono text-sm font-medium">PUT</span>
-        <span class="px-4 py-2 bg-purple-500/15 text-purple-400 rounded-lg font-mono text-sm font-medium">PATCH</span>
-        <span class="px-4 py-2 bg-red-500/15 text-red-400 rounded-lg font-mono text-sm font-medium">DELETE</span>
-      </div>
-    </section>
+            <!-- Header -->
+            <header class="text-center mb-16">
+                <div class="inline-flex items-center gap-3 mb-5">
+                    <div
+                        class="w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-blue-500/30">
+                        { }</div>
+                    <h1
+                        class="text-4xl font-bold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
+                        JSON Server</h1>
+                </div>
+                <p class="text-slate-500 text-lg">零代码 · 快速搭建 REST API 模拟服务器</p>
+                <div
+                    class="inline-flex items-center gap-2 mt-6 px-4 py-2 bg-green-500/10 border border-green-500/30 text-green-400 rounded-full text-sm">
+                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse-dot"></span>
+                    服务运行中
+                </div>
+            </header>
 
-    <!-- 使用示例 -->
-    <section class="bg-white/5 border border-white/10 rounded-2xl p-8 mb-6 backdrop-blur">
-      <h2 class="text-xl font-medium mb-6 flex items-center gap-3">
-        <span class="w-1 h-6 bg-gradient-to-b from-blue-500 to-purple-500 rounded"></span>
-        使用示例
-      </h2>
-      <div id="examples-container" class="space-y-4">
-        <div class="flex items-center justify-center py-10 text-slate-500">
-          <svg class="w-6 h-6 animate-spin mr-3" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-          </svg>
-          正在加载示例...
-        </div>
-      </div>
-    </section>
+            <!-- 可用资源 -->
+            <section class="bg-white/5 border border-white/10 rounded-2xl p-8 mb-6 backdrop-blur">
+                <h2 class="text-xl font-medium mb-6 flex items-center gap-3">
+                    <span class="w-1 h-6 bg-gradient-to-b from-blue-500 to-purple-500 rounded"></span>
+                    可用资源
+                </h2>
 
-    <!-- Footer -->
-    <footer class="text-center pt-8 text-slate-500 text-sm">
-      基于 <a href="https://github.com/typicode/json-server" target="_blank" class="text-blue-400 hover:underline">json-server</a> 构建
-    </footer>
-  </div>
+                <!-- 加载中 -->
+                <div v-if="loading" class="flex items-center justify-center py-10 text-slate-500">
+                    <svg class="w-6 h-6 animate-spin mr-3" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z">
+                        </path>
+                    </svg>
+                    正在加载资源...
+                </div>
 
-  <script>
-    const iconMap = {
-      users: '👥', posts: '📝', comments: '💬', products: '📦', orders: '🛒',
-      categories: '📁', tags: '🏷️', articles: '📰', messages: '✉️',
-      notifications: '🔔', settings: '⚙️', profile: '👤', default: '📋'
-    };
+                <!-- 错误 -->
+                <div v-else-if="error" class="text-center py-10 text-red-400">{{ error }}</div>
 
-    function getIcon(name) {
-      const lower = name.toLowerCase();
-      for (const [key, icon] of Object.entries(iconMap)) {
-        if (lower.includes(key)) return icon;
-      }
-      return iconMap.default;
-    }
+                <!-- 资源列表 -->
+                <div v-else class="space-y-3">
+                    <a v-for="(data, name) in db" :key="name" :href="'/api/' + name"
+                        class="flex items-center justify-between p-4 bg-white/5 border border-white/5 rounded-xl hover:bg-blue-500/10 hover:border-blue-500/20 transition-all group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center text-lg">{{
+                                getIcon(name) }}</div>
+                            <div>
+                                <div class="font-medium text-slate-200">{{ name }}</div>
+                                <div class="text-sm text-slate-500">{{ getDesc(data) }}</div>
+                            </div>
+                        </div>
+                        <span
+                            class="px-3 py-1.5 bg-blue-500/10 text-blue-400 rounded-lg font-mono text-sm group-hover:bg-blue-500/20 transition-colors">/api/{{
+                            name }}</span>
+                    </a>
+                </div>
+            </section>
 
-    function getDesc(name, data) {
-      if (Array.isArray(data)) return `${data.length} 条数据`;
-      if (typeof data === 'object' && data !== null) return '单例资源';
-      return '资源';
-    }
+            <!-- HTTP 方法 -->
+            <section class="bg-white/5 border border-white/10 rounded-2xl p-8 mb-6 backdrop-blur">
+                <h2 class="text-xl font-medium mb-6 flex items-center gap-3">
+                    <span class="w-1 h-6 bg-gradient-to-b from-blue-500 to-purple-500 rounded"></span>
+                    支持的 HTTP 方法
+                </h2>
+                <div class="flex flex-wrap gap-3">
+                    <span v-for="m in methods" :key="m.name" :class="m.color"
+                        class="px-4 py-2 rounded-lg font-mono text-sm font-medium">{{ m.name }}</span>
+                </div>
+            </section>
 
-    function renderResources(db) {
-      const container = document.getElementById('resources-container');
-      const resources = Object.keys(db);
-      
-      if (!resources.length) {
-        container.innerHTML = '<div class="text-center py-10 text-slate-500">暂无可用资源</div>';
-        return;
-      }
+            <!-- 使用示例 -->
+            <section class="bg-white/5 border border-white/10 rounded-2xl p-8 mb-6 backdrop-blur">
+                <h2 class="text-xl font-medium mb-6 flex items-center gap-3">
+                    <span class="w-1 h-6 bg-gradient-to-b from-blue-500 to-purple-500 rounded"></span>
+                    使用示例
+                </h2>
 
-      container.innerHTML = resources.map(name => `
-        <a href="/api/${name}" class="flex items-center justify-between p-4 bg-white/5 border border-white/5 rounded-xl hover:bg-blue-500/10 hover:border-blue-500/20 transition-all group">
-          <div class="flex items-center gap-4">
-            <div class="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center text-lg">${getIcon(name)}</div>
-            <div>
-              <div class="font-medium text-slate-200">${name}</div>
-              <div class="text-sm text-slate-500">${getDesc(name, db[name])}</div>
-            </div>
-          </div>
-          <span class="px-3 py-1.5 bg-blue-500/10 text-blue-400 rounded-lg font-mono text-sm group-hover:bg-blue-500/20 transition-colors">/api/${name}</span>
-        </a>
-      `).join('');
-    }
+                <div v-if="loading" class="flex items-center justify-center py-10 text-slate-500">
+                    <svg class="w-6 h-6 animate-spin mr-3" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z">
+                        </path>
+                    </svg>
+                    正在加载...
+                </div>
 
-    function renderExamples(db) {
-      const container = document.getElementById('examples-container');
-      const resources = Object.keys(db);
-      const res = resources.find(n => Array.isArray(db[n])) || resources[0];
-      
-      if (!res) {
-        container.innerHTML = '<div class="text-center py-10 text-slate-500">暂无示例</div>';
-        return;
-      }
-
-      const isArr = Array.isArray(db[res]);
-      const examples = [
-        { title: `获取全部 ${res}`, method: 'GET', url: `/api/${res}` }
-      ];
-
-      if (isArr) {
-        examples.push(
-          { title: `获取单个 ${res}`, method: 'GET', url: `/api/${res}/1` },
-          { title: '分页查询', method: 'GET', url: `/api/${res}?_page=1&_limit=10` },
-          { title: '排序查询', method: 'GET', url: `/api/${res}?_sort=id&_order=desc` },
-          { title: '创建数据', method: 'POST', url: `/api/${res}`, body: true },
-          { title: '更新数据', method: 'PUT', url: `/api/${res}/1`, body: true },
-          { title: '部分更新', method: 'PATCH', url: `/api/${res}/1`, body: true },
-          { title: '删除数据', method: 'DELETE', url: `/api/${res}/1` }
-        );
-      }
-
-      const methodColors = {
-        GET: 'text-green-400', POST: 'text-blue-400', PUT: 'text-orange-400',
-        PATCH: 'text-purple-400', DELETE: 'text-red-400'
-      };
-
-      container.innerHTML = examples.map(ex => `
-        <div class="bg-slate-900 border border-white/10 rounded-xl overflow-hidden">
-          <div class="px-4 py-3 bg-white/5 border-b border-white/5 text-xs text-slate-500 uppercase tracking-wider">${ex.title}</div>
-          <pre class="p-4 font-mono text-sm overflow-x-auto"><span class="${methodColors[ex.method]}">${ex.method}</span> <span class="text-blue-400">${ex.url}</span>${ex.body ? `
+                <div v-else class="space-y-4">
+                    <div v-for="ex in examples" :key="ex.title"
+                        class="bg-slate-900 border border-white/10 rounded-xl overflow-hidden">
+                        <div
+                            class="px-4 py-3 bg-white/5 border-b border-white/5 text-xs text-slate-500 uppercase tracking-wider">
+                            {{ ex.title }}</div>
+                        <pre class="p-4 font-mono text-sm overflow-x-auto"><span :class="methodColors[ex.method]">{{ ex.method }}</span> <span class="text-blue-400">{{ ex.url }}</span><template v-if="ex.body">
 <span class="text-slate-500">Content-Type: application/json</span>
 
-{ ... }` : ''}</pre>
+{ ... }</template></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="text-center pt-8 text-slate-500 text-sm">
+                基于 <a href="https://github.com/typicode/json-server" target="_blank"
+                    class="text-blue-400 hover:underline">json-server</a> 构建
+            </footer>
         </div>
-      `).join('');
-    }
+    </div>
 
-    async function loadData() {
-      try {
-        const res = await fetch('/api/db');
-        if (!res.ok) throw new Error('加载失败');
-        const db = await res.json();
-        renderResources(db);
-        renderExamples(db);
-      } catch (e) {
-        console.error('加载数据失败:', e);
-        document.getElementById('resources-container').innerHTML = '<div class="text-center py-10 text-slate-500">加载失败，请刷新重试</div>';
-        document.getElementById('examples-container').innerHTML = '<div class="text-center py-10 text-slate-500">加载失败</div>';
-      }
-    }
+    <script>
+        const { createApp, ref, computed, onMounted } = Vue
 
-    document.addEventListener('DOMContentLoaded', loadData);
-  </script>
+        createApp({
+            setup() {
+                const db = ref({})
+                const loading = ref(true)
+                const error = ref(null)
+
+                const iconMap = {
+                    users: '👥', posts: '📝', comments: '💬', products: '📦', orders: '🛒',
+                    categories: '📁', tags: '🏷️', articles: '📰', messages: '✉️',
+                    notifications: '🔔', settings: '⚙️', profile: '👤'
+                }
+
+                const methods = [
+                    { name: 'GET', color: 'bg-green-500/15 text-green-400' },
+                    { name: 'POST', color: 'bg-blue-500/15 text-blue-400' },
+                    { name: 'PUT', color: 'bg-orange-500/15 text-orange-400' },
+                    { name: 'PATCH', color: 'bg-purple-500/15 text-purple-400' },
+                    { name: 'DELETE', color: 'bg-red-500/15 text-red-400' }
+                ]
+
+                const methodColors = {
+                    GET: 'text-green-400', POST: 'text-blue-400', PUT: 'text-orange-400',
+                    PATCH: 'text-purple-400', DELETE: 'text-red-400'
+                }
+
+                const getIcon = (name) => {
+                    const lower = name.toLowerCase()
+                    for (const [key, icon] of Object.entries(iconMap)) {
+                        if (lower.includes(key)) return icon
+                    }
+                    return '📋'
+                }
+
+                const getDesc = (data) => {
+                    if (Array.isArray(data)) return `${data.length} 条数据`
+                    if (typeof data === 'object' && data !== null) return '单例资源'
+                    return '资源'
+                }
+
+                const firstArrayResource = computed(() => {
+                    for (const [name, data] of Object.entries(db.value)) {
+                        if (Array.isArray(data)) return name
+                    }
+                    return Object.keys(db.value)[0] || 'items'
+                })
+
+                const examples = computed(() => {
+                    const res = firstArrayResource.value
+                    if (!res) return []
+
+                    const isArr = Array.isArray(db.value[res])
+                    const list = [{ title: `获取全部 ${res}`, method: 'GET', url: `/api/${res}` }]
+
+                    if (isArr) {
+                        list.push(
+                            { title: `获取单个 ${res}`, method: 'GET', url: `/api/${res}/1` },
+                            { title: '分页查询', method: 'GET', url: `/api/${res}?_page=1&_limit=10` },
+                            { title: '排序查询', method: 'GET', url: `/api/${res}?_sort=id&_order=desc` },
+                            { title: '创建数据', method: 'POST', url: `/api/${res}`, body: true },
+                            { title: '更新数据', method: 'PUT', url: `/api/${res}/1`, body: true },
+                            { title: '部分更新', method: 'PATCH', url: `/api/${res}/1`, body: true },
+                            { title: '删除数据', method: 'DELETE', url: `/api/${res}/1` }
+                        )
+                    }
+                    return list
+                })
+
+                onMounted(async () => {
+                    try {
+                        const res = await fetch('/api/db')
+                        if (!res.ok) throw new Error('请求失败')
+                        db.value = await res.json()
+                    } catch (e) {
+                        error.value = '加载失败，请刷新重试'
+                        console.error(e)
+                    } finally {
+                        loading.value = false
+                    }
+                })
+
+                return { db, loading, error, methods, methodColors, examples, getIcon, getDesc }
+            }
+        }).mount('#app')
+    </script>
 </body>
+
 </html>
