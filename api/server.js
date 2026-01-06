@@ -11,9 +11,9 @@ const __dirname = path.dirname(__filename)
 const server = jsonServer.create()
 
 // 使用默认中间件（日志、静态文件、CORS 和 no-cache）
-server.use(jsonServer.defaults())
+// server.use(jsonServer.defaults())
 // 配置静态文件目录为 public
-// server.use(jsonServer.defaults({ static: 'public' }))
+server.use(jsonServer.defaults({ static: 'public' }))
 
 // 配置 URL 重写规则（需要在 router 之前使用）
 // '/api/*': '/$1' - 将 /api/posts 重写为 /posts
