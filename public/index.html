@@ -84,7 +84,7 @@
 
                 <!-- 资源列表 -->
                 <div v-else class="space-y-3">
-                    <a v-for="(data, name) in db" :key="name" :href="'/api/' + name"
+                    <a v-for="(data, name) in db" :key="name" :href="'/' + name"
                         class="flex items-center justify-between p-4 bg-white/5 border border-white/5 rounded-xl hover:bg-blue-500/10 hover:border-blue-500/20 transition-all group">
                         <div class="flex items-center gap-4">
                             <div class="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center text-lg">{{
@@ -95,7 +95,7 @@
                             </div>
                         </div>
                         <span
-                            class="px-3 py-1.5 bg-blue-500/10 text-blue-400 rounded-lg font-mono text-sm group-hover:bg-blue-500/20 transition-colors">/api/{{
+                            class="px-3 py-1.5 bg-blue-500/10 text-blue-400 rounded-lg font-mono text-sm group-hover:bg-blue-500/20 transition-colors">/{{
                             name }}</span>
                     </a>
                 </div>
@@ -206,17 +206,17 @@
                     if (!res) return []
 
                     const isArr = Array.isArray(db.value[res])
-                    const list = [{ title: `获取全部 ${res}`, method: 'GET', url: `/api/${res}` }]
+                    const list = [{ title: `获取全部 ${res}`, method: 'GET', url: res }]
 
                     if (isArr) {
                         list.push(
-                            { title: `获取单个 ${res}`, method: 'GET', url: `/api/${res}/1` },
-                            { title: '分页查询', method: 'GET', url: `/api/${res}?_page=1&_limit=10` },
-                            { title: '排序查询', method: 'GET', url: `/api/${res}?_sort=id&_order=desc` },
-                            { title: '创建数据', method: 'POST', url: `/api/${res}`, body: true },
-                            { title: '更新数据', method: 'PUT', url: `/api/${res}/1`, body: true },
-                            { title: '部分更新', method: 'PATCH', url: `/api/${res}/1`, body: true },
-                            { title: '删除数据', method: 'DELETE', url: `/api/${res}/1` }
+                            { title: `获取单个 ${res}`, method: 'GET', url: `/${res}/1` },
+                            { title: '分页查询', method: 'GET', url: `/${res}?_page=1&_limit=10` },
+                            { title: '排序查询', method: 'GET', url: `/${res}?_sort=id&_order=desc` },
+                            { title: '创建数据', method: 'POST', url: `/${res}`, body: true },
+                            { title: '更新数据', method: 'PUT', url: `/${res}/1`, body: true },
+                            { title: '部分更新', method: 'PATCH', url: `/${res}/1`, body: true },
+                            { title: '删除数据', method: 'DELETE', url: `/${res}/1` }
                         )
                     }
                     return list
@@ -224,7 +224,7 @@
 
                 onMounted(async () => {
                     try {
-                        const res = await fetch('/api/db')
+                        const res = await fetch('/db')
                         if (!res.ok) throw new Error('请求失败')
                         db.value = await res.json()
                     } catch (e) {
